@@ -11,7 +11,7 @@ A continuación, se proporcionará la información necesaria para ejecutar el pr
 ### Android
 
 1. **Descargar la Aplicación:**
-   - Descarga la ultima version del archivo `.apk` desde el [repositorio de builds](https://github.com/Kumblesoft/Proyecto-INFO282-Sistema-de-registro-de-visitas/tree/prod/builds) o desde [releases](https://github.com/Kumblesoft/Proyecto-INFO282-Sistema-de-registro-de-visitas/releases).
+   - Descarga la ultima version del archivo `.apk` desde [releases](https://github.com/Paskiben/Fork-INFO290-17-of-Proyecto-INFO282-Sistema-de-registro-de-visitas/releases).
    
 2. **Instalar y Usar:**
    - Una vez descargado el archivo `.apk`, instala la aplicación en tu dispositivo Android.
@@ -20,7 +20,7 @@ A continuación, se proporcionará la información necesaria para ejecutar el pr
 ### iOS
 
 1. **Descargar la Aplicación:**
-   - Descarga la ultima version del archivo `.tar.gz` desde el [repositorio de builds](https://github.com/Kumblesoft/Proyecto-INFO282-Sistema-de-registro-de-visitas/tree/prod/builds) o desde [releases](https://github.com/Kumblesoft/Proyecto-INFO282-Sistema-de-registro-de-visitas/releases).
+   - Descarga la ultima version del archivo `.tar.gz` desde [releases](https://github.com/Paskiben/Fork-INFO290-17-of-Proyecto-INFO282-Sistema-de-registro-de-visitas/releases).
 
 2. **Instalar y Usar:**
    - Extrae e instala el archivo en tu dispositivo iOS. 
@@ -38,7 +38,7 @@ A continuación, se proporcionará la información necesaria para ejecutar el pr
 1. **Clonar el Repositorio**  
    Primero, clona el repositorio en tu máquina local utilizando el siguiente comando (se debe instalar un cliente de git):
    ```bash
-   git clone https://github.com/Kumblesoft/Proyecto-INFO282-Sistema-de-registro-de-visitas.git
+   git clone https://github.com/Paskiben/Fork-INFO290-17-of-Proyecto-INFO282-Sistema-de-registro-de-visitas.git
    ```
 4. Instalar node.js para la ejecucion del proyecto: https://nodejs.org/en/
 5. Instalar Bun para la gestion de paquetes: https://bun.sh/docs/installation#installing
