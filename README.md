@@ -56,27 +56,28 @@ abrirá expo go y ejecutara el proyecto en modo desarrollador. Mas de un disposi
 
 ## Requerimientos
 -- REVISAR
-1. Al abrir la aplicacion, primero se necesit seleccionar un formulario con el que interactiar, para esto se debe pulsar el boton de "Formularios".
-2. En la pantalla de "Formularios" vera listados las distintas platillas de formularios a seleccionar, se debe pulsar el nombre para seleccionarlo, o pulsar el boton "+" para crear uno nuevo.
-3. Una vez seleccionada la plantilla de formulario sera llevado de vuelta al menu de inico. A continuacion debe darle al boton "Rellenar" para rellenar el formulario seleccionado.
-4. Sera llevado a la pantalla de rellenar formularios, debera completar con los datos pedidos y darle al boton de "Guardar".
+1. La app debe ser capaz de seleccionar un formulario guardado.
+2. La app debe ser capaz de rellenar el formulario seleccionado y guardarlo en local.
+3. La app debe guardar las plantillas de formulario y sus respuestas correspondientes en una base de datos local.
+4. La app debe avisar al usuario cuando cometa errores al momento de rellenar un formulario.
 
 
 ## Requisitos
 
 ### Funcionales
-1. La app debe ser capaz de seleccionar un formulario guardado.
-2. La app debe ser capaz de rellenar el formulario seleccionado y guardarlo en local.
+1. La app debe ser capaz de seleccionar una plantilla de formulario almacenada en una base de datos local al momento de ser seleccionada desde la pantalla de "Formularios".
+2. La aplicacion debe ser capaz de interpretar las propiedades de una platilla guardada y presentarla de forma visual para que el usuario la rellene posteriormente.
+3. La aplicacion debe revisar que la data ingresada por el usuario cumpla con las restricciones correspondientes a la casilla antes de guardarla.
 
 ### No funcionales
-1. La app debe demorar menos de 2 segundos en cambiar de pantalla.
-2. El sistema debe ser capaz de correr de manera offline.
+1. La app debe demorar menos de 1 segundo al cambiar de pantalla para dar una experiencia fluida al usuario.
+2. El sistema debe ser capaz de correr de manera offline para habilitar el uso de la aplicacion en zonas remotas o de baja covertura.
 
 
 ## Especificaciones
-1. La apliacion debera ser capaz de guardar plantillas de formularios en una base de datos local, luego mostrarlos en la pantalla de "Formularios".
-2. La app debe ser capaz de recibir un formularios rellenado y guardarlo en una base de datos local, luego mostrarse en la pantalla de "Formularios Guardados".
-3. La app debe tener demorarse menos de un segundo al momento de guardar y cargar archivos, por lo que se usara una base de datos local como SQLite.
+1. La apliacion debera ser capaz de guardar plantillas de formularios en una base de datos local, enviando un pop up en caso de haber un error. Luego debe poder ser visualizada en la pantalla de "Formularios".
+2. La app debe ser capaz de guardar la informacion de un formularios rellenado en los campos indicados y guardarlo en una base de datos local, luego mostrarse en la pantalla de "Formularios Guardados".
+3. Al momento de pulsar botones o moverse por pantallas la aplicacion debe demorarse menos de un segundo en realizar cada accion.
 4. El sistema es capaz de trabajar offline, por lo que las tecnologias seleccionadas no deben necesitar acceso a la nube.
 
 ---
