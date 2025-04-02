@@ -40,9 +40,9 @@ A continuación, se proporcionará la información necesaria para ejecutar el pr
    ```bash
    git clone https://github.com/Paskiben/Fork-INFO290-17-of-Proyecto-INFO282-Sistema-de-registro-de-visitas.git
    ```
-4. Instalar node.js para la ejecucion del proyecto: https://nodejs.org/en/
-5. Instalar Bun para la gestion de paquetes: https://bun.sh/docs/installation#installing
-6. Descargar expoGo en un dispositivo movil IOS o Android desde la correspondiente tienda de aplicaciones.
+2. Instalar node.js para la ejecucion del proyecto: https://nodejs.org/en/.
+3. Instalar Bun para la gestion de paquetes: https://bun.sh/docs/installation#installing.
+4. Descargar expoGo en un dispositivo movil IOS o Android desde la correspondiente tienda de aplicaciones.
 
 Para ejecutar, solo hay que moverse al directorio src y ejecutar lo siguiente:
 ```bash
@@ -54,5 +54,34 @@ abrirá expo go y ejecutara el proyecto en modo desarrollador. Mas de un disposi
 
 ---
 
+## Requerimientos
+-- REVISAR
+1. Al abrir la aplicacion, primero se necesit seleccionar un formulario con el que interactiar, para esto se debe pulsar el boton de "Formularios".
+2. En la pantalla de "Formularios" vera listados las distintas platillas de formularios a seleccionar, se debe pulsar el nombre para seleccionarlo, o pulsar el boton "+" para crear uno nuevo.
+3. Una vez seleccionada la plantilla de formulario sera llevado de vuelta al menu de inico. A continuacion debe darle al boton "Rellenar" para rellenar el formulario seleccionado.
+4. Sera llevado a la pantalla de rellenar formularios, debera completar con los datos pedidos y darle al boton de "Guardar".
+
+
+## Requisitos
+
+### Funcionales
+1. La app debe ser capaz de seleccionar un formulario guardado.
+2. La app debe ser capaz de rellenar el formulario seleccionado y guardarlo en local.
+
+### No funcionales
+1. La app debe demorar menos de 2 segundos en cambiar de pantalla.
+2. El sistema debe ser capaz de correr de manera offline.
+
+
+## Especificaciones
+1. La apliacion debera ser capaz de guardar plantillas de formularios en una base de datos local, luego mostrarlos en la pantalla de "Formularios".
+2. La app debe ser capaz de recibir un formularios rellenado y guardarlo en una base de datos local, luego mostrarse en la pantalla de "Formularios Guardados".
+3. La app debe tener demorarse menos de un segundo al momento de guardar y cargar archivos, por lo que se usara una base de datos local como SQLite.
+4. El sistema es capaz de trabajar offline, por lo que las tecnologias seleccionadas no deben necesitar acceso a la nube.
+
+---
+
 ## 📜 Licencia
 Este proyecto está bajo la licencia Apache License 2.0. Puedes ver más detalles sobre la licencia en el archivo LICENSE.
+
+Jest to expoGo testing automatization
