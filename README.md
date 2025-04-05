@@ -82,6 +82,20 @@ abrirá expo go y ejecutara el proyecto en modo desarrollador. Mas de un disposi
 
 ---
 
+## Testing
+
+Se crearon dos test automatisados, uno para la funcion de añadir archivos a la base de datos, y otro para la eliminacion
+
++ Los archivos para el testing estan en la carpeta src/__tests__/
+
++ Para correr todos los test a la vez puede usar
+`bun run jest --config=jest.config.js`
+
++ Para correr un test en particular usar
+`bun run jest --config=jest.config.js <test_name.js>`
+
+---
+
 ## 📜 Licencia
 Este proyecto está bajo la licencia Apache License 2.0. Puedes ver más detalles sobre la licencia en el archivo LICENSE.
 
