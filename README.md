@@ -84,7 +84,8 @@ abrirá expo go y ejecutara el proyecto en modo desarrollador. Mas de un disposi
 
 ## Testing
 
-Se crearon dos test automatisados, uno para la funcion de añadir archivos a la base de datos, y otro para la eliminacion
+Se crearon dos test automatisados, uno para la funcion de añadir archivos a la base de datos, y otro para la eliminacion.
+Por necesidades de Jest, la herramienta usada para el testing, se hizo un mock de todos los datos externos necesarios para la prueba.
 
 + Los archivos para el testing estan en la carpeta src/__tests__/
 
