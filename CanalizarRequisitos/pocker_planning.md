@@ -1,3 +1,3 @@
-Se veia en muy baja resolucion la exportacion por el modelo freemium de Miro, asi que dejamos el link para el Wireframe y Story Board
+Se veia en muy baja resolucion la exportacion por el modelo freemium de Miro, asi que dejamos el link para el Pocker Planing
 
 https://miro.com/welcomeonboard/ck5YanFDN0duSzlENG1ENWRNYWk5N0NaL0FwSHFJWXpZR21Qb1R6LytieTZXbHR6ekE1ZGx2ZmtuSFhQMnV2bkhTVVh3YzFTL3dFVVFoQ2ZYZTY5TmYxVkNPWmpuV1hsNVdvcDBoVFRwb1VSbkpZREJkM2Y2QWlOUDM0S0ZGOUxhWWluRVAxeXRuUUgwWDl3Mk1qRGVRPT0hdjE=?share_link_id=977165141514
