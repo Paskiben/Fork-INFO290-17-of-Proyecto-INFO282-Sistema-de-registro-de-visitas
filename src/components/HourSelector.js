@@ -4,6 +4,7 @@ import { Platform, StyleSheet } from 'react-native'
 import { TimerPickerModal } from "react-native-timer-picker"
 import { LinearGradient } from "expo-linear-gradient"
 import * as Haptics from "expo-haptics" // for haptic feedback
+import * as Sentry from '@sentry/react-native'
 
 const resetIcon = props => <Icon name='sync-outline' {...props} />
 

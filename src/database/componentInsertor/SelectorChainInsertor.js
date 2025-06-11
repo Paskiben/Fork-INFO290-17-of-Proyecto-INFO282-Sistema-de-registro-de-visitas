@@ -27,7 +27,7 @@ export default class SelectorChainInsertor extends ChainInsertor {
             [fieldId]
         ).id_options
 
-        console.log(id_options)
+        Sentry.captureMessage(id_options)
         this.db.runSync(
             'DELETE FROM selector_options WHERE fk_selector_id = ?',
             [id_options]

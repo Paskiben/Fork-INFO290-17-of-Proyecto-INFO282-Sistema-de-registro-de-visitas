@@ -7,6 +7,7 @@ import { useSQLiteContext } from "expo-sqlite"
 import { getDatabaseInstance } from "../database/database"
 
 import FieldSelector from "../components/FormGenerator/FieldSelector"
+import * as Sentry from '@sentry/react-native'
 
 export default function FormEditor() {
   const db = getDatabaseInstance(useSQLiteContext())
@@ -59,7 +60,7 @@ export default function FormEditor() {
 
   const handleScroll = event => {
     setDragMode(event)
-    console.log(dragMode)
+    Sentry.captureMessage(dragMode)
   }
   return (
     <Layout style={styles.layoutContainer}>

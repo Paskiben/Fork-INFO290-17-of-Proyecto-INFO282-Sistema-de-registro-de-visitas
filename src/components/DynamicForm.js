@@ -12,6 +12,7 @@ import { StyleSheet } from "react-native"
 import { useFormContext } from '../context/SelectedFormContext'
 import { useSQLiteContext } from 'expo-sqlite'
 import { getDatabaseInstance } from '../database/database'
+import * as Sentry from '@sentry/react-native'
 
 
 const tickIcon = (props) => <Icon name='save' {...props} />
@@ -27,7 +28,7 @@ const tickIcon = (props) => <Icon name='save' {...props} />
  */
 
 const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
-    console.log(formData)
+    Sentry.captureMessage(formData)
     const db = getDatabaseInstance(useSQLiteContext())
     const requiredFieldRefs = useRef([])
     const refreshFieldRefs = useRef([])
@@ -79,14 +80,14 @@ const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
                 data: Object.fromEntries(formState.current),
                 idDispositivo: identifier
             }
-            console.log(JSON.stringify(newForm, null, 2))
+            Sentry.captureMessage(JSON.stringify(newForm, null, 2))
             db.insertAnswer(newForm)
 
             Alert.alert("Formulario guardado")
             formState.current.clear()
             refreshFieldRefs.current.forEach(ref => ref())
         } catch (error) {
-            console.error("Error al guardar el formulario:", error)
+            Sentry.captureException("Error al guardar el formulario:", error)
         }
     }
     /**
@@ -101,11 +102,11 @@ const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
         const refreshFieldRef = useRef(null)
         refreshFieldRefs.current.push(() => refreshFieldRef.current())
         requiredFieldRefs.current.push(() => requiredFieldRef.current())  // Añadir la referencia al array
-        console.log(field)
+        Sentry.captureMessage(field)
         
         switch (field.tipo) {
             case 'selector':
-                console.log('selector')
+                Sentry.captureMessage('selector')
                 return (
                     <OptionSelector
                         key={`selector-${index}`}
@@ -124,7 +125,7 @@ const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
                     />
                 )
             case 'checkbox':
-                console.log('checkbox')
+                Sentry.captureMessage('checkbox')
                 return (
                     <OptionSelector
                         key={`checkbox-${index}`}
@@ -144,7 +145,7 @@ const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
                     />
                 )
             case 'radio':
-                console.log('radio')
+                Sentry.captureMessage('radio')
                 return (
                     <OptionSelector
                         key={`radio-${index}`}
@@ -164,8 +165,8 @@ const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
                     />
                 )
             case 'fecha':
-                //console.log(field['limitaciones'])
-                console.log('fecha')
+                //Sentry.captureMessage(field['limitaciones'])
+                Sentry.captureMessage('fecha')
                 return (
                     <DateSelector
                         key={`fecha-${index}`}
@@ -185,8 +186,8 @@ const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
                 )
             case 'hora': {
                 const now = new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0')
-                console.log('hora')
-                //console.log(field)
+                Sentry.captureMessage('hora')
+                //Sentry.captureMessage(field)
                 return (
                     <HourSelector
                         key={`hora-${index}`}
@@ -205,7 +206,7 @@ const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
             }
             case 'camara':
                 requiredFieldRefs.current.push(() => requiredFieldRef.current())  // Añadir la referencia al array
-                console.log('camara:', field)
+                Sentry.captureMessage('camara:', field)
                 return (
                     <Camera
                         key={`camara-${index}`}
@@ -223,7 +224,7 @@ const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
                 )
             case 'texto':
                 requiredFieldRefs.current.push(() => requiredFieldRef.current())  // Añadir la referencia al array
-                console.log('texto:', field)
+                Sentry.captureMessage('texto:', field)
                 return (
                     <TextEntry
                         key={`texto-${index}`}
@@ -241,7 +242,7 @@ const DynamicForm = forwardRef(({ formData, disabledSave }, ref) => {
                     />
                 )
             default:
-                console.error(`Unsupported field type: ${field.tipo}`)
+                Sentry.captureException(`Unsupported field type: ${field.tipo}`)
                 return null
         }
     }

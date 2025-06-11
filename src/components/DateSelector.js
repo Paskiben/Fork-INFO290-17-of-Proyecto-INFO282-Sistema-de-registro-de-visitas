@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Platform, View, StyleSheet } from 'react-native'
 import { Text, Layout, Icon, Datepicker, NativeDateService } from '@ui-kitten/components'
 import { decodeDate } from '../commonStructures/DateFuncions'
+import * as Sentry from '@sentry/react-native'
 /**
  * Converts a custom date format to a format compatible with date-fns.
  *
@@ -68,7 +69,7 @@ const DateSelector = ({ value, onChange, optionalFeatures, requiredFieldRef, ref
   useEffect(() => {
     if (defaultDate && !hasInitialized.current) {
       setSelectedDate(defaultDate)
-      console.log('defaultDate:', defaultDate, 'dateFormat:', dateFormat)
+      Sentry.captureMessage('defaultDate:', defaultDate, 'dateFormat:', dateFormat)
       const formattedDate = configuredDateService.format(defaultDate, dateFormat)
       onChange(formattedDate)
       setIsRequiredAlert(false)

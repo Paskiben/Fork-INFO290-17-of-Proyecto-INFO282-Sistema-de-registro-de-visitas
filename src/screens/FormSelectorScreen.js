@@ -12,6 +12,7 @@ import shareTypes from '../commonStructures/shareTypes'
 import * as DocumentPicker from 'expo-document-picker'
 import { useSQLiteContext } from 'expo-sqlite'
 import { getDatabaseInstance } from '../database/database'
+import * as Sentry from '@sentry/react-native'
 
 const { width, height } = Dimensions.get('window')
 
@@ -26,7 +27,7 @@ const FormSelectorScreen = () => {
   const [file, setFile] = useState(null) // File picker function
   const [forms, setForms] = useState(db.getAllForms())
 
-  console.log("Forms:", forms)
+  Sentry.captureMessage("Forms:", forms)
   const backIcon = () => <Icon name='arrow-ios-back-outline' fill='#fff' style={styles.topNavigationIcon} />
   const importIcon = () => <Icon name='cloud-download-outline' fill='#fff' style={styles.topNavigationIcon} />
   const deleteIcon = props => <Icon name='trash-outline' {...props} fill="#fff" animationConfig={{ cycles: Infinity }} animation='zoom' style={[props.style, { width: 30, height: 30 }]} />
@@ -53,10 +54,10 @@ const FormSelectorScreen = () => {
         const pickedFile = result.assets[0]
         setFile(pickedFile)
 
-        console.log("File URI:", pickedFile.uri)
-        console.log("File Name:", pickedFile.name)
-        console.log("File Size:", pickedFile.size)
-        console.log("MIME Type:", pickedFile.mimeType)
+        Sentry.captureMessage("File URI:", pickedFile.uri)
+        Sentry.captureMessage("File Name:", pickedFile.name)
+        Sentry.captureMessage("File Size:", pickedFile.size)
+        Sentry.captureMessage("MIME Type:", pickedFile.mimeType)
 
         // Copy the file to a cache director
         const fileUri = pickedFile.uri
@@ -70,17 +71,17 @@ const FormSelectorScreen = () => {
         buffer = JSON.parse(buffer)
         Array.isArray(buffer.content) ? buffer = buffer.content : buffer = [buffer.content]
         content.forEach(form => {
-          console.log(form)
+          Sentry.captureMessage(form)
           db.addForm(form)
-          console.log(db.getForm(form["nombre formulario"]))
+          Sentry.captureMessage(db.getForm(form["nombre formulario"]))
         })
 
-        console.log("File Content:", content)
+        Sentry.captureMessage("File Content:", content)
       }
-      else if (result.canceled) { console.log("Action Canceled, no file selected.") }
+      else if (result.canceled) { Sentry.captureMessage("Action Canceled, no file selected.") }
       else { Alert.alert("Error", "Failed to pick a document. Please try again.") }
     } catch (err) {
-      console.log("Error picking document:", err)
+      Sentry.captureMessage("Error picking document:", err)
       Alert.alert("Error", "Something went wrong when picking the document.")
     }
   }
@@ -190,7 +191,7 @@ const FormSelectorScreen = () => {
       })
       // Si se compartio correctamente
     ).catch(error => {
-      console.error('Error al crear archivo:', error)
+      Sentry.captureException('Error al crear archivo:', error)
       Alert.alert('Error', 'Hubo un problema al intentar compartir el archivo')
       // Borrar el archivo temporal
     }).finally(
@@ -199,7 +200,7 @@ const FormSelectorScreen = () => {
           const fileInfo = await FileSystem.getInfoAsync(filePath)
           if (fileInfo.exists) await FileSystem.deleteAsync(filePath)
         } catch (deleteError) {
-          console.error('Error al eliminar el archivo:', deleteError)
+          Sentry.captureException('Error al eliminar el archivo:', deleteError)
         }
       }
     )
@@ -208,7 +209,7 @@ const FormSelectorScreen = () => {
   const OptionsModal = () => {
 
     const onShare = shareFormTemplate
-    const onEdit = () => console.log("Editar")
+    const onEdit = () => Sentry.captureMessage("Editar")
     const onSelect = item => {
       setSelectedForm(item)
       navigation.goBack()

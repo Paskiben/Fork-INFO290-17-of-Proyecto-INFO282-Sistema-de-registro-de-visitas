@@ -4,6 +4,7 @@ import { Text, Input, Button, Layout, Divider, CheckBox, Radio, Icon, RadioGroup
 import { TimerPickerModal } from 'react-native-timer-picker'
 import * as Haptics from 'expo-haptics'
 import { LinearGradient } from 'expo-linear-gradient'
+import * as Sentry from '@sentry/react-native'
 
 const HourConstructor = ({ field = {}, onSave }) => {
     // Obtener hora actual en formato hh:mm
@@ -36,13 +37,13 @@ const HourConstructor = ({ field = {}, onSave }) => {
         }
 
         if (onSave) {
-            console.log(field)
+            Sentry.captureMessage(field)
             onSave(field)
         }
     }
 
     const handleRadioSelectionChange = index => {
-        console.log('index:', index)
+        Sentry.captureMessage('index:', index)
         setSelectedDefaultHourIndex(index)
         setDefaultHour(index === 0 ? 'actual' : (() => {
             const date = new Date()
