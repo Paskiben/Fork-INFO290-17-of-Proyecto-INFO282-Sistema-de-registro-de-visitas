@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, Alert, TouchableOpacity } from 'react-native'
 import { Text, Input, Button, Datepicker, NativeDateService, Icon, CheckBox, Divider, List, ListItem } from '@ui-kitten/components'	
+import * as Sentry from '@sentry/react-native'
 
 const formats = [
     "DD/MM/YYYY",
@@ -62,7 +63,7 @@ const DateConstructor = ({ field = {}, onSave }) => {
         }
 
         if (onSave) {
-            console.log(field)
+            Sentry.captureMessage(field)
             onSave(field)
         }
     }

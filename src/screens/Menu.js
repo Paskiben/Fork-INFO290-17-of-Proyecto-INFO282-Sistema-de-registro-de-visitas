@@ -24,7 +24,7 @@ export default function Menu() {
       Alert.alert('Error', 'Seleccione un formulario primero')
   }
 
-
+  throw new Error('My first Sentry error!');
   return (
       <Layout style={{ flex: 1 }}>
         <SafeAreaView style={styles.safeArea}>

@@ -47,5 +47,5 @@
 			"fecha predeterminada":"hoy" 
 		}
 	],
-	"accion personalizada":"()=>{console.log('Hacer algo')}"
+	"accion personalizada":"()=>{Sentry.captureMessage('Hacer algo')}"
 }]

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Input, Button, List, ListItem, CheckBox, Icon, Divider } from '@ui-kitten/components'
+import * as Sentry from '@sentry/react-native'
 
 const TextoConstructor = ({ field, onSave }) => {
 
@@ -37,8 +38,8 @@ const TextoConstructor = ({ field, onSave }) => {
         [1, 1], // "no numeros"
     ]
 
-    console.log(field)
-    console.log(Array.isArray(field.limitaciones))
+    Sentry.captureMessage(field)
+    Sentry.captureMessage(Array.isArray(field.limitaciones))
     const [fieldName, setFieldName] = useState(field.nombre ?? '')
     const [selectedLimitaciones, setSelectedLimitaciones] = useState(Array.isArray(field.limitaciones) ?
         field.limitaciones.map(limitacion => enumLimitaciones[limitacion])
@@ -53,7 +54,7 @@ const TextoConstructor = ({ field, onSave }) => {
     const [showLimitations, setShowLimitations] = useState(false)
     const [showFormat, setShowFormat] = useState(false)
     const [showOptional, setShowOptional] = useState(false)
-    console.log(selectedFormato)
+    Sentry.captureMessage(selectedFormato)
     const toggleLimitacion = index => {
         const newLimitaciones = selectedLimitaciones.includes(index)
             ? selectedLimitaciones.filter(i => i !== index)

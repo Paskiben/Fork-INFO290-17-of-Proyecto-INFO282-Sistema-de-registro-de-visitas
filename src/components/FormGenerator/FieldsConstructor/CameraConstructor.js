@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import * as Sentry from '@sentry/react-native'
 import {
     View,
     StyleSheet,
@@ -36,7 +37,7 @@ const CameraConstructor = ({ onSave, field = {} }) => {
         }
 
         if (onSave) {
-            console.log(field)
+            Sentry.captureMessage(field)
             onSave(field)
         }
     }

@@ -6,13 +6,13 @@ export default class CheckboxChainInsertor extends ChainInsertor {
         if (fieldObject.tipo != 'checkbox')
             return this.next && this.next.insert(fieldObject, fieldId, fieldTypeId, fieldTableName)
 
-        //console.log(fieldObject)
+        //Sentry.captureMessage(fieldObject)
         this.db.runSync(
             `INSERT INTO ${fieldTableName} (fk_field, max_checked_options, is_required) VALUES (?,?,?)`,
             [fieldId, fieldObject["cantidad de elecciones"], fieldObject.obligatorio]
         )
         const insertedRowId = this.db.getFirstSync('select last_insert_rowid() as id')
-        //console.log('insertedRowId', insertedRowId)
+        //Sentry.captureMessage('insertedRowId', insertedRowId)
 
         fieldObject.opciones?.forEach(option =>
             this.db.runSync(

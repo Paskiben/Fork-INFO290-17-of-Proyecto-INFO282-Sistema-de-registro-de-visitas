@@ -6,6 +6,7 @@ import CameraChainInsertor from './componentInsertor/CameraChainInsertor'
 import CheckboxChainInsertor from './componentInsertor/CheckboxChainInsertor'
 import RadioChainInsertor from './componentInsertor/RadiusChainInsertor'
 import initDatabaseScript from './tables'
+import * as Sentry from '@sentry/react-native'
 
 const { dbInit } = initDatabaseScript
 const tables = ['forms', 'fields', 'field_table_name', 'text_properties', 'selector_properties', 'checkbox_properties', 'radio_properties', 'date_properties', 'hour_properties', 'camera_properties', 'limitations',
@@ -34,9 +35,9 @@ export const setCompatibility = (db, firstElement, secondElement, typenameOfFiel
 export async function initializeDataBase(db) {
     try {
         db.execSync(dbInit);
-        console.log('Database initialized');
+        Sentry.captureMessage('Database initialized');
     } catch (error) {
-        console.log(error);
+        Sentry.captureException(error);
     }
 
     table_types.forEach(type => {
@@ -163,8 +164,8 @@ export default class Database {
         try {
             return this.db.getAllSync('SELECT name FROM forms').map(form => form.name)
         } catch (error) {
-            console.error('getAllFormNames:', error)
-            console.error('trace:', error.stack)
+            Sentry.captureException('getAllFormNames:', error)
+            Sentry.captureException('trace:', error.stack)
         }
     }
 
@@ -173,8 +174,8 @@ export default class Database {
             const forms = this.db.getAllSync('SELECT name FROM forms')
             return forms.map(form => this.getForm(form.name))
         } catch (error) {
-            console.error('getAllForms', error)
-            console.error('trace:', error.stack)
+            Sentry.captureException('getAllForms', error)
+            Sentry.captureException('trace:', error.stack)
         }
     }
 
@@ -215,9 +216,9 @@ export default class Database {
             return outputForm
 
         } catch (error) {
-            console.error('getForm: ', error)
-            console.error('trace:', error.stack)
-            console.error('input:', nombreFormulario)
+            Sentry.captureException('getForm: ', error)
+            Sentry.captureException('trace:', error.stack)
+            Sentry.captureException('input:', nombreFormulario)
         }
     }
 
@@ -226,8 +227,8 @@ export default class Database {
             const answers = this.db.getAllSync('SELECT id_respuesta FROM respuestas')
             return answers.map(answer => this.getAnswer(answer['id_respuesta']))
         } catch (error) {
-            console.error('getAllAnswers:', error)
-            console.error('trace:', error.stack)
+            Sentry.captureException('getAllAnswers:', error)
+            Sentry.captureException('trace:', error.stack)
         }
     }
     getAnswerFromFormTemplate(formName) {
@@ -235,9 +236,9 @@ export default class Database {
             const answers = this.db.getAllSync('SELECT id FROM forms WHERE name = ?', [formName])
             return answers.map(answer => this.getAnswer(answer['id_respuesta']))
         } catch (error) {
-            console.error('getAnswerFromFormTemplate:', error)
-            console.error('trace:', error.stack)
-            console.error('input:', formName)
+            Sentry.captureException('getAnswerFromFormTemplate:', error)
+            Sentry.captureException('trace:', error.stack)
+            Sentry.captureException('input:', formName)
         }
     }
     getAnswer(idRespuesta) {
@@ -261,9 +262,9 @@ export default class Database {
             }
 
         } catch (error) {
-            console.error('getAnswer:', error)
-            console.error('trace:', error.stack)
-            console.error('input:', idRespuesta)
+            Sentry.captureException('getAnswer:', error)
+            Sentry.captureException('trace:', error.stack)
+            Sentry.captureException('input:', idRespuesta)
         }
     }
 
@@ -291,9 +292,9 @@ export default class Database {
                 }
             })
         } catch (error) {
-            console.error('addForm:', error)
-            console.error('trace:', error.stack)
-            console.error('input:', JSON.stringify(newForm, undefined, 2))
+            Sentry.captureException('addForm:', error)
+            Sentry.captureException('trace:', error.stack)
+            Sentry.captureException('input:', JSON.stringify(newForm, undefined, 2))
         }
     }
 
@@ -302,24 +303,24 @@ export default class Database {
             const formID = this.db.getFirstSync('SELECT id FROM forms WHERE name = ?', [formName]).id
 
             const fieldsID = this.db.getAllSync('SELECT id, fk_field_table_name FROM fields WHERE fk_id_form = ?', [formID])
-            console.log(fieldsID)
+            Sentry.captureMessage(fieldsID)
             fieldsID.forEach(field => {
-                console.log('iteration start')
+                Sentry.captureMessage('iteration start')
                 const fieldTableName = this.db.getFirstSync('SELECT table_name FROM field_table_name WHERE id = ?', [field.fk_field_table_name]).table_name
-                console.log('first query')
+                Sentry.captureMessage('first query')
                 const fieldTypeName = this.db.getFirstSync('SELECT field_type_name FROM field_table_name WHERE id = ?', [field.fk_field_table_name]).field_type_name
-                console.log('second query')
+                Sentry.captureMessage('second query')
                 //if (!this.chainInsertors.delete(field.id, fieldTableName)) throw new Error('Error al eliminar')
                 this.chainInsertors.delete(field.id, fieldTableName, fieldTypeName)
-                console.log("Outside")
+                Sentry.captureMessage("Outside")
                 this.db.runSync('DELETE FROM fields WHERE id = ?', [field.id])
-                console.log('iteration ended')
+                Sentry.captureMessage('iteration ended')
             })
             this.db.runSync('DELETE FROM forms WHERE id = ?', [formID])
         } catch (error) {
-            console.error('deleteForm:', error)
-            console.error('trace:', error.stack)
-            console.error('input:', formName)
+            Sentry.captureException('deleteForm:', error)
+            Sentry.captureException('trace:', error.stack)
+            Sentry.captureException('input:', formName)
         }
     }
 

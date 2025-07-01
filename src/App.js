@@ -17,6 +17,17 @@ import SavedForms from "./screens/SavedFormsScreen"
 import Settings from "./screens/Settings"
 import FormEditor from './screens/FormEditor'
 
+import * as Sentry from "@sentry/react-native"
+
+Sentry.init({
+  dsn: "https://3efb87638329ad5c5461415382fffe62@o4509477660393472.ingest.de.sentry.io/4509477674090576",
+  // Adds more context data to events (IP address, cookies, user, etc.)
+  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
+  enableInExpoDevelopment: true,
+  tracesSampleRate: 1.0,
+  sendDefaultPii: true,
+})
+
 const myTheme = {
   ...eva.light,
   'color-primary-default': '#28a745',
@@ -47,25 +58,27 @@ export default function App() {
 
   return (
     <>
-      <IconRegistry icons={EvaIconsPack} />
-      <SQLiteProvider databaseName="forms.db" onInit={initializeDataBase}>
-        <ApplicationProvider {...eva} theme={myTheme}>
-          <NavigationContainer>
-            <FormProvider>
-              <IdentifierProvider>
-                <Stack.Navigator initialRouteName="Menu">
-                  <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
-                  <Stack.Screen name="FormSelector" component={FormSelectorScreen} options={{ headerShown: false }} />
-                  <Stack.Screen name="SavedForms" component={SavedForms} options={{ headerShown: false }} />
-                  <Stack.Screen name="FormFiller" component={FormFiller} options={{ headerShown: false }} />
-                  <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
-                  <Stack.Screen name="FormEditor" component={FormEditor} options={{ headerShown: false }} />
-                </Stack.Navigator>
-              </IdentifierProvider>
-            </FormProvider>
-          </NavigationContainer>
-        </ApplicationProvider>
-      </SQLiteProvider>
+      <Sentry.ErrorBoundary>
+        <IconRegistry icons={EvaIconsPack} />
+        <SQLiteProvider databaseName="forms.db" onInit={initializeDataBase}>
+          <ApplicationProvider {...eva} theme={myTheme}>
+            <NavigationContainer>
+              <FormProvider>
+                <IdentifierProvider>
+                  <Stack.Navigator initialRouteName="Menu">
+                    <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
+                    <Stack.Screen name="FormSelector" component={FormSelectorScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="SavedForms" component={SavedForms} options={{ headerShown: false }} />
+                    <Stack.Screen name="FormFiller" component={FormFiller} options={{ headerShown: false }} />
+                    <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
+                    <Stack.Screen name="FormEditor" component={FormEditor} options={{ headerShown: false }} />
+                  </Stack.Navigator>
+                </IdentifierProvider>
+              </FormProvider>
+            </NavigationContainer>
+          </ApplicationProvider>
+        </SQLiteProvider>
+      </Sentry.ErrorBoundary>
     </>
   )
 }

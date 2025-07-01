@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet,FlatList, TouchableOpacity } from 'react-native'
 import { Input, Button, Icon, Layout, Divider, CheckBox} from '@ui-kitten/components'
+import * as Sentry from '@sentry/react-native'
 
 const RadioConstructor = ({ field, onSave }) => {
     const [options, setOptions] = useState(field.opciones || [])
@@ -32,7 +33,7 @@ const RadioConstructor = ({ field, onSave }) => {
         }
 
         if (onSave) {
-            console.log(field)
+            Sentry.captureMessage(field)
             onSave(field)
         }
     }

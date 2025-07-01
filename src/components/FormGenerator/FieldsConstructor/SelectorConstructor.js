@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { Input, Button, Icon, Layout, Divider, CheckBox, Select, SelectItem } from '@ui-kitten/components'
+import * as Sentry from '@sentry/react-native'
 
 const SelectorConstructor = ({ field, onSave }) => {
     const [options, setOptions] = useState(field.opciones || [])
@@ -42,7 +43,7 @@ const SelectorConstructor = ({ field, onSave }) => {
         }
 
         if (onSave) {
-            console.log(field)
+            Sentry.captureMessage(field)
             onSave(field)
         }
     }
@@ -138,7 +139,7 @@ const SelectorConstructor = ({ field, onSave }) => {
                             {showDefaultOption && !!options.length && 
                                 <Select style={{paddingLeft: '10%', flex:1}} placeholder='Seleccione una opcion...' value={defaultOption !== null ? options[defaultOption].nombre : ''} onSelect={index => {
                                     const selectedOption = index.row
-                                    console.log(selectedOption)
+                                    Sentry.captureMessage(selectedOption)
                                     if (selectedOption !== defaultOption) setDefaultOption(selectedOption)
                                 }}>
                                     {options.map((option, i) =>  <SelectItem key={i} title={option.nombre} value={option.valor} /> )}

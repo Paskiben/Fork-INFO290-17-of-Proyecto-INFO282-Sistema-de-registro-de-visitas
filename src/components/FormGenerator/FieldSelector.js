@@ -85,7 +85,7 @@ const FieldSelector = ({ onSave, scrollCheck }) => {
     // Agregar un nuevo campo
     const handleNewField = () => {
         if (!fields[selectedField])
-            return console.error('Field type not implemented:', selectedField)
+            return Sentry.captureException('Field type not implemented:', selectedField)
 
         setFieldsToDisplay([...fieldsToDisplay, { ...fields[selectedField], tipo: selectedField }])
         setMiniFields([...miniFields, fields[selectedField].nombre])
@@ -120,7 +120,7 @@ const FieldSelector = ({ onSave, scrollCheck }) => {
             setDragMode(!dragMode)
             return
         }
-        // console.log(miniFields)
+        // Sentry.captureMessage(miniFields)
         Alert.alert('Error', 'Los campos deben tener nombre')
     }
 

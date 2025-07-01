@@ -19,7 +19,7 @@ export const IDInputComponent = () => {
       setIsIDChanged(true)
       setIsEditing(false)
     } catch (error) {
-      console.error("Error al guardar el ID en SecureStore:", error)
+      Sentry.captureException("Error al guardar el ID en SecureStore:", error)
     }
   }
 
@@ -34,7 +34,7 @@ export const IDInputComponent = () => {
       setIdentifier(originalIdentifier)
       setIsIDChanged(true)
     } catch (error) {
-      console.error("Error al restaurar el ID original en SecureStore:", error)
+      Sentry.captureException("Error al restaurar el ID original en SecureStore:", error)
     }
   }
 

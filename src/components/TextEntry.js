@@ -6,6 +6,7 @@ import { useCameraPermissions } from 'expo-camera'
 import { CameraView } from "expo-camera"
 import { getDatabaseInstance } from '../database/database'
 import { useSQLiteContext } from 'expo-sqlite'
+import * as Sentry from '@sentry/react-native'
 
 /**
  * Represents optional features for the TextEntry component.
@@ -104,7 +105,7 @@ const TextEntry = ({ optionalFeatures, onSelect, requiredFieldRef, refreshFieldR
         return acc
       }, []))
 
-    //console.log(invalidLimitations)
+    //Sentry.captureMessage(invalidLimitations)
 
     if (invalidLimitations.length) {
       setInputValue(text)

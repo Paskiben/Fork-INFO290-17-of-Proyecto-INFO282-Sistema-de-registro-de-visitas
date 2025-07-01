@@ -1,11 +1,12 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { IndexPath, Select, SelectItem } from '@ui-kitten/components'
 import { StyleSheet } from 'react-native'
+import * as Sentry from '@sentry/react-native'
 
 
 
 const ItemSelector = forwardRef(({ items, onSelect, value, defaultOption, placeholder, error, disabled }, ref) => {
-  console.log(defaultOption)
+  Sentry.captureMessage(defaultOption)
   
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(new IndexPath(defaultOption)) // Índice seleccionado
   const [selectedValue, setSelectedValue] = useState(defaultOption ? items[defaultOption].nombre : placeholder) // Valor inicial

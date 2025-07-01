@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, FlatList, TouchableOpacity, Platform, StyleSheet, Alert } from 'react-native'
 import { Layout, Text, Input, Button, Icon, CheckBox, Divider, Select, SelectItem } from '@ui-kitten/components'
+import * as Sentry from '@sentry/react-native'
 
 const CheckBoxConstructor = ({ onSave, field = {} }) => {
     const [fieldName, setFieldName] = useState(field.nombre || '')
@@ -41,7 +42,7 @@ const CheckBoxConstructor = ({ onSave, field = {} }) => {
         }
 
         if (onSave) {
-            console.log(field)
+            Sentry.captureMessage(field)
             onSave(field)
         }
     }
@@ -139,7 +140,7 @@ const CheckBoxConstructor = ({ onSave, field = {} }) => {
                                         {showMaxSelections && options.length>1&& 
                                             <Select style={{paddingLeft: '10%', flex:1}} placeholder='Seleccione una opcion...' value={maxSelections !== null ? maxSelections.toString() : ''} onSelect={index => {
                                                 const selectedOption = index.row
-                                                console.log(selectedOption)
+                                                Sentry.captureMessage(selectedOption)
                                                 if (selectedOption !== maxSelections) setMaxSelections(selectedOption)
                                             }}>
                                                 {options.map((option, i) =>  i != 0 ? <SelectItem key={i} title={i.toString()} value={i} /> : <></>)}

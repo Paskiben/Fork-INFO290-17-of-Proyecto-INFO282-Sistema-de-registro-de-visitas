@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react'
 import * as SecureStore from 'expo-secure-store'
 import 'react-native-get-random-values'
 import { v4 as uuidv4 } from 'uuid'
+import * as Sentry from '@sentry/react-native'
 
 export const IdentifierContext = createContext()
 
@@ -18,7 +19,7 @@ export const IdentifierProvider = ({ children }) => {
         // Si no hay identificador original, genera uno nuevo y lo guarda
         if (!storedOriginalIdentifier) {
           const newIdentifier = uuidv4()
-          console.log("Generated new original identifier:", newIdentifier)
+          Sentry.captureMessage("Generated new original identifier:", newIdentifier)
           await SecureStore.setItemAsync('secure_deviceid', newIdentifier)
           storedOriginalIdentifier = newIdentifier
         }
@@ -31,10 +32,10 @@ export const IdentifierProvider = ({ children }) => {
         if (!storedIdentifier) {
           storedIdentifier = storedOriginalIdentifier
         }
-        console.log("Identifier retrieved from SecureStore:", storedIdentifier)
+        Sentry.captureMessage("Identifier retrieved from SecureStore:", storedIdentifier)
         setIdentifier(storedIdentifier)
       } catch (error) {
-        console.error("Error accessing SecureStore:", error)
+        Sentry.captureException("Error accessing SecureStore:", error)
       }
     }
 

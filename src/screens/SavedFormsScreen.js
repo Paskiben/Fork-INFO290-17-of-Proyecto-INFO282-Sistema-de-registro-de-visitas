@@ -85,7 +85,7 @@ const SavedForms = () => {
             setBaseForms(savedForms)
             setForms(savedForms)
         } catch (error) {
-            console.error('Error :', error)
+            Sentry.captureException('Error :', error)
         }
     }
 
@@ -118,7 +118,7 @@ const SavedForms = () => {
             }
             // Si no se pudo compartir 
         ).catch(error => {
-            console.error('Error al compartir:', error);
+            Sentry.captureException('Error al compartir:', error);
             Alert.alert('Error', 'Hubo un problema al intentar compartir el archivo')
             // Borrar el archivo temporal
         }).finally(
@@ -127,7 +127,7 @@ const SavedForms = () => {
                     const fileInfo = await FileSystem.getInfoAsync(filePath)
                     if (fileInfo.exists) await FileSystem.deleteAsync(filePath)
                 } catch (deleteError) {
-                    console.error('Error al eliminar el archivo:', deleteError)
+                    Sentry.captureException('Error al eliminar el archivo:', deleteError)
                 }
             }
         )
@@ -145,7 +145,7 @@ const SavedForms = () => {
             Alert.alert('Éxito', 'Formularios eliminados')
             fetchSavedForms()
         } catch (error) {
-            console.error('Error :', error)
+            Sentry.captureException('Error :', error)
             Alert.alert('Error', 'No se pudo eliminar los formularios seleccionados')
         }
     }
